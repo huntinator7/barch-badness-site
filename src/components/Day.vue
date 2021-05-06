@@ -104,7 +104,7 @@ export default {
       }
     }
     .winner {
-      margin-left: 10px;
+      margin-left: 60px;
     }
     display: flex;
     align-items: center;

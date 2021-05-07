@@ -3,34 +3,20 @@
   h1 Day {{ day }}
   .rounds
     .round(v-for="round in rounds")
-      .match(v-for="match in round.matches")
-        .contenders
-          song-frame(
-            :song="match.song_a",
-            :votes="match.song_a_votes",
-            :winner="match.winner"
-          )
-          song-frame(
-            :song="match.song_b",
-            :votes="match.song_b_votes",
-            :winner="match.winner"
-          )
-        .winner(v-if="!!match.winner && match.round === 0")
-          song-frame(:song="match.winner")
+      match(v-for="match in round.matches", :match="match")
 </template>
 
 <script>
 import { db } from "./db";
-import SongFrame from "./SongFrame";
+import Match from "@/components/Match";
 
 export default {
   name: "Day",
   components: {
-    SongFrame,
+    Match,
   },
   props: {
     day: {
-      type: Number,
       required: true,
     },
   },
@@ -66,7 +52,7 @@ export default {
             .collection("Prod")
             .doc("BarchBadness")
             .collection("Matches")
-            .where("day", "==", day)
+            .where("day", "==", parseInt(day))
         );
       },
     },
@@ -96,19 +82,6 @@ export default {
         margin-left: 0px;
       }
     }
-  }
-  .match {
-    .contenders {
-      > div:first-child {
-        margin-bottom: 10px;
-      }
-    }
-    .winner {
-      margin-left: 60px;
-    }
-    display: flex;
-    align-items: center;
-    padding: 20px 40px 10px 10px;
   }
 }
 </style>

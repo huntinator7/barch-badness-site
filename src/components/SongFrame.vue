@@ -80,6 +80,8 @@ export default {
   text-align: left;
   height: 80px;
   position: relative;
+  font-size: 1rem;
+  font-weight: normal;
   .bold {
     font-weight: bold;
   }

@@ -1,10 +1,14 @@
 <template lang="pug">
-.day
-  h1 Day {{ $route.params.day }}
+day(:day="$route.params.day")
 </template>
 
 <script>
+import Day from "../components/Day";
+
 export default {
-  name: "Day",
+  name: "DayPage",
+  components: {
+    Day,
+  },
 };
 </script>

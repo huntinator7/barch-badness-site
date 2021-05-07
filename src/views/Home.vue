@@ -1,52 +1,62 @@
 <template lang="pug">
 .home
-  h1 Home
+  h1 Active Matches
   .list
-    day(
-      v-for="(_, day) in new Array(lastDayNumber)",
-      :day="lastDayNumber - day",
-      :key="lastDayNumber - day"
-    )
+    .active-match(v-for="match in activeMatches")
+      h1(:style="titleStyle") {{ `Day ${match.day} - ${rounds[match.round]} ${match.matchIndex + 1}` }}
+      match(:match="match")
 </template>
 
 <script>
-import { db } from "../components/db";
-import Day from "../components/Day";
+import { isMobile } from "@/components/mobile";
+import { db } from "@/components/db";
+import Match from "@/components/Match";
 
 export default {
   name: "Home",
   components: {
-    Day,
+    Match,
   },
   data() {
     return {
-      lastDay: [],
+      matches: [],
+      rounds: ["Final", "Semifinal", "Quarterfinal"],
     };
   },
   computed: {
-    lastDayNumber() {
-      return this.lastDay?.[0]?.day;
+    activeMatches() {
+      return this.matches.filter((m) => !m.winner);
+    },
+    titleStyle() {
+      return {
+        "font-size": isMobile() ? "2em" : "4em",
+      };
     },
   },
   firestore: {
-    lastDay: db
-      .collection("Prod")
-      .doc("BarchBadness")
-      .collection("Matches")
-      .orderBy("day", "desc")
-      .limit(1),
+    matches: db.collection("Prod").doc("BarchBadness").collection("Matches"),
   },
 };
 </script>
 
 <style lang="scss" scoped>
 .home {
-  overflow-x: auto;
   .list {
     display: flex;
     flex-direction: column;
     padding: 10px;
-    width: fit-content;
+    overflow-x: auto;
+  }
+  .active-match {
+    h1 {
+      margin: 0.25em 0em;
+    }
+    display: flex;
+    flex-direction: column;
+    background-color: lightgray;
+    padding: 10px;
+    align-items: flex-start;
+    margin-bottom: 20px;
   }
 }
 </style>

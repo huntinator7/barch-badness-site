@@ -5,6 +5,15 @@
     .active-match(v-for="match in activeMatches")
       h1(:style="titleStyle") {{ `Day ${match.day} - ${rounds[match.round]} ${match.matchIndex + 1}` }}
       match(:match="match")
+  h1 Voting Playlist
+  iframe(
+    :src="`https://open.spotify.com/embed/playlist/1PBpjIqCbielrYB9OE4wgU`",
+    width="300",
+    height="380",
+    frameborder="0",
+    allowtransparency="true",
+    allow="encrypted-media"
+  )
 </template>
 
 <script>

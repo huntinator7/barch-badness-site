@@ -4,12 +4,14 @@
     song-frame(
       :song="match.song_a",
       :votes="match.song_a_votes",
-      :winner="match.winner"
+      :winner="match.winner",
+      :showEmbed="!match.winner"
     )
     song-frame(
       :song="match.song_b",
       :votes="match.song_b_votes",
-      :winner="match.winner"
+      :winner="match.winner",
+      :showEmbed="!match.winner"
     )
   .winner(v-if="!!match.winner && match.round === 0")
     song-frame(:song="match.winner")

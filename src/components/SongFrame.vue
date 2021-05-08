@@ -1,18 +1,26 @@
 <template lang="pug">
-.song-frame(:style="getColors(song.id)")
-  span.bold {{ song.name }}
-  span {{ song.artists }}
-  span.winner(v-if="isWinner") W
-  img(
-    v-for="(vote, i) in votes",
-    :src="vote.avatar",
-    :style="`right:${40 * i}px;`"
-  )
+.song-frame(:style="songFrameStyle")
+  .song(:style="getColors(song.id)")
+    span.bold {{ song.name }}
+    span {{ song.artists }}
+    span.winner(v-if="isWinner") W
+    img(
+      v-for="(vote, i) in votes",
+      :src="vote.avatar",
+      :style="`right:${40 * i}px;`"
+    )
+  spotify-i-frame(v-if="showEmbed", :id="song.id")
 </template>
 
 <script>
+import SpotifyIFrame from "@/components/SpotifyIFrame";
+import { isMobile } from "./mobile";
+
 export default {
   name: "SongFrame",
+  components: {
+    SpotifyIFrame,
+  },
   props: {
     song: {
       type: Object,
@@ -26,10 +34,19 @@ export default {
       type: Object,
       default: null,
     },
+    showEmbed: {
+      type: Boolean,
+      default: false,
+    },
   },
   computed: {
     isWinner() {
       return this.winner?.id === this.song.id;
+    },
+    songFrameStyle() {
+      return {
+        "flex-direction": isMobile() ? "column" : "row",
+      };
     },
   },
   methods: {
@@ -72,37 +89,41 @@ export default {
 <style lang="scss" scoped>
 .song-frame {
   display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: flex-start;
-  width: 300px;
-  padding-left: 10px;
-  text-align: left;
-  height: 80px;
-  position: relative;
-  font-size: 1rem;
-  font-weight: normal;
-  .bold {
-    font-weight: bold;
-  }
-  img {
-    height: 32px;
-    width: 32px;
-    position: absolute;
-    bottom: 0px;
-  }
-  .winner {
-    position: absolute;
-    right: -40px;
-    height: 80px;
-    width: 40px;
-    color: black;
-    background-color: white;
-    font-size: 2em;
-    font-weight: bold;
+  flex-direction: row;
+  .song {
     display: flex;
     justify-content: center;
-    align-items: center;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 290px;
+    padding-left: 10px;
+    text-align: left;
+    height: 80px;
+    position: relative;
+    font-size: 1rem;
+    font-weight: normal;
+    .bold {
+      font-weight: bold;
+    }
+    img {
+      height: 32px;
+      width: 32px;
+      position: absolute;
+      bottom: 0px;
+    }
+    .winner {
+      position: absolute;
+      right: -40px;
+      height: 80px;
+      width: 40px;
+      color: black;
+      background-color: white;
+      font-size: 2em;
+      font-weight: bold;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
   }
 }
 </style>

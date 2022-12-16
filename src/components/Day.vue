@@ -1,5 +1,5 @@
 <template lang="pug">
-.day
+.day(:style="dayStyle")
   h1 Day {{ day }}
   .rounds
     .round(v-for="round in rounds")
@@ -48,11 +48,7 @@ export default {
       handler(day) {
         this.$bind(
           "matches",
-          db
-            .collection("Prod")
-            .doc("BarchBadness")
-            .collection("Matches")
-            .where("day", "==", parseInt(day))
+          db.collection("Matches").where("day", "==", parseInt(day))
         );
       },
     },

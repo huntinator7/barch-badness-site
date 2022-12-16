@@ -3,7 +3,7 @@ day(:day="$route.params.day")
 </template>
 
 <script>
-import Day from "../components/Day";
+import Day from "@/components/Day";
 
 export default {
   name: "DayPage",

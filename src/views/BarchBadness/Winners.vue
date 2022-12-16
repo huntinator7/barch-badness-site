@@ -14,6 +14,14 @@
         :song="match.winner.id === match.song_a.id ? match.song_b : match.song_a",
         :votes="match.winner.id === match.song_a.id ? match.song_b_votes : match.song_a_votes"
       )
+  iframe(
+    :src="`https://open.spotify.com/embed/playlist/48q7wU931Z3dtMc0ogl946`",
+    width="300",
+    height="380",
+    frameborder="0",
+    allowtransparency="true",
+    allow="encrypted-media"
+  )
 </template>
 
 <script>
@@ -43,8 +51,6 @@ export default {
   },
   firestore: {
     finalRounds: db
-      .collection("Prod")
-      .doc("BarchBadness")
       .collection("Matches")
       .where("round", "==", 0)
       .orderBy("day", "desc"),

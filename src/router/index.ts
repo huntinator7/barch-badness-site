@@ -1,43 +1,34 @@
 import Vue from "vue";
 import VueRouter, { RouteConfig } from "vue-router";
-import Home from "../views/Home.vue";
+
+// import Home from "@/views/Home.vue";
+import BarchBadnessRoutes from "./barchBadness";
 
 Vue.use(VueRouter);
 
-const routes: Array<RouteConfig> = [
+// const addPrefix = (prefix: string, routes: RouteConfig[]): RouteConfig[] => {
+//   return routes.map((r) => ({ ...r, path: `/${prefix}${r.path}` }));
+// };
+
+const routes: RouteConfig[] = [
   {
     path: "/",
     name: "Home",
-    component: Home,
+    component: () => import(/* webpackChunkName: "home" */ "../views/Home.vue"),
   },
   {
-    path: "/day/:day",
-    name: "Day",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ "../views/Day.vue"),
+    path: "/login",
+    name: "Login",
+    component: () =>
+      import(/* webpackChunkName: "login" */ "../views/Login.vue"),
   },
-  {
-    path: "/days",
-    name: "Days",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ "../views/Days.vue"),
-  },
-  {
-    path: "/winners",
-    name: "Winners",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ "../views/Winners.vue"),
-  },
+  ...BarchBadnessRoutes,
 ];
 
 const router = new VueRouter({
   routes,
 });
+
+// console.log(routes);
 
 export default router;

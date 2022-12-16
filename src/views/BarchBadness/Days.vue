@@ -52,12 +52,7 @@ export default {
     },
   },
   firestore: {
-    lastDay: db
-      .collection("Prod")
-      .doc("BarchBadness")
-      .collection("Matches")
-      .orderBy("day", "desc")
-      .limit(1),
+    lastDay: db.collection("Matches").orderBy("day", "desc").limit(1),
   },
 };
 </script>

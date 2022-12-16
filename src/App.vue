@@ -2,8 +2,9 @@
   <div id="app">
     <div id="nav">
       <router-link to="/">Home</router-link> |
-      <router-link to="/days?orderby=desc&expanded=y">Days</router-link> |
-      <router-link to="/winners">Winners</router-link>
+      <router-link to="/barchbadness">Barch Badness</router-link> |
+      <router-link to="/moosetracks">Moose Tracks</router-link> |
+      <router-link to="/login">Login</router-link>
     </div>
     <router-view />
   </div>

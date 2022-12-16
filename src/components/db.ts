@@ -3,8 +3,9 @@ import "firebase/firestore";
 
 // Get a Firestore instance
 export const db = firebase
-  .initializeApp({ projectId: "moosebot-ccd89" })
-  .firestore();
+  .firestore()
+  .collection(process.env.NODE_ENV === "development" ? "Dev" : "Prod")
+  .doc("BarchBadness");
 
 // Export types that exists in Firestore
 // This is not always necessary, but it's used in other examples
